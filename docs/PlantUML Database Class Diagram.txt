@@ -1,0 +1,57 @@
+
+@startuml
+
+title Nutrition App
+
+skinparam nodesep 100
+
+class Recipe {
+    difficulty level
+    keywords
+    portion
+    healthy level
+}
+class ShoppingList{}
+class FridgeState{}
+class Rate{
+    value
+    osoba wpisuj¹ca
+}
+class PreparationTime{
+    value
+    jednostkê
+    osoba wpisuj¹ca
+}
+class Vitamin{}
+class TypeOfMeal{
+    type
+    subtype
+}
+class Ingredient {
+    ingredient_id
+    quantity
+    unit
+    fridge_presence
+}
+
+class IngredientSchema {
+    id
+    name
+    season
+    vitamin
+    cost per unit of quantity
+    preffered shop
+}
+
+class Store {}
+
+Recipe -right- Rate
+Recipe "1" -up- "*" PreparationTime
+Recipe "*" -down- "1" TypeOfMeal
+Recipe -right- Ingredient
+
+
+IngredientSchema "1" -> "*" Ingredient
+
+
+@enduml
