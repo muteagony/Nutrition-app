@@ -8,21 +8,34 @@ skinparam nodesep 100
 class Recipe {
     difficulty level
     keywords
-    portion
+    suggested amount of portions
     healthy level
 }
-class ShoppingList{}
-class FridgeState{}
+
+class FridgeIngredient{
+    expiration date
+}
 class Rate{
     value
-    osoba wpisuj¹ca
+    osoba wpisujÄ…ca
 }
 class PreparationTime{
-    value
-    jednostkê
-    osoba wpisuj¹ca
+    value in minutes
+    osoba wpisujÄ…ca
 }
-class Vitamin{}
+
+class VitaminSchema{
+    name
+    objawy niedoboru
+    objawy nadmiaru
+    zapotrzebowanie dzienne
+}
+
+class Vitamin {
+    name
+    quantity in promiles
+}
+
 class TypeOfMeal{
     type
     subtype
@@ -31,7 +44,6 @@ class Ingredient {
     ingredient_id
     quantity
     unit
-    fridge_presence
 }
 
 class IngredientSchema {
@@ -43,15 +55,17 @@ class IngredientSchema {
     preffered shop
 }
 
-class Store {}
 
 Recipe -right- Rate
 Recipe "1" -up- "*" PreparationTime
 Recipe "*" -down- "1" TypeOfMeal
-Recipe -right- Ingredient
+Recipe -left- Ingredient
+Vitamin "*" -up- "1" IngredientSchema
 
-
+Ingredient "1" -down-> "1" FridgeIngredient
+Ingredient "1" -up-> "1" ShoppingIngridient
 IngredientSchema "1" -> "*" Ingredient
+VitaminSchema "1" -left-> "*" Vitamin
 
 
 @enduml
