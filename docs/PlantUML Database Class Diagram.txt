@@ -1,0 +1,83 @@
+
+@startuml
+
+title Nutrition App
+
+skinparam nodesep 100
+
+class Recipe {
+    id
+    name
+    difficulty level
+    keywords
+    suggested amount of portions
+    healthy level
+}
+
+class FridgeIngredient{
+    expiration date
+}
+class Rate{
+    id
+    value
+    author
+}
+
+class PreparationTime{
+    id
+    value in minutes
+    author
+}
+
+class VitaminSchema{
+    id
+    name
+    symptoms of deficiency
+    symptoms of overdose
+    minimal suggested daily dose
+    maximal suggested daily dose
+}
+
+class Vitamin {
+    id
+    vitamin schema id
+    name
+    quantity in mg per 100g
+}
+
+class TypeOfMeal{
+    id
+    recipe id
+    type
+    subtype
+}
+class Ingredient {
+    id
+    ingredient schema id
+    quantity
+    unit
+}
+
+class IngredientSchema {
+    id
+    name
+    season
+    vitamin
+    cost per unit of quantity
+    preferred shop
+}
+
+
+Recipe "1" -right- "*" Rate
+Recipe "1" -up- "*" PreparationTime
+Recipe "*" -down- "1" TypeOfMeal
+Recipe "1" -left- "*" Ingredient
+Vitamin "*" -up- "1" IngredientSchema
+
+Ingredient  -down->  FridgeIngredient
+Ingredient  -up->  ShoppingIngridient
+IngredientSchema "1" - "*" Ingredient
+VitaminSchema "1" -left- "*" Vitamin
+
+
+@enduml
