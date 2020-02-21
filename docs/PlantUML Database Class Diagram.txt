@@ -6,6 +6,8 @@ title Nutrition App
 skinparam nodesep 100
 
 class Recipe {
+    id
+    name
     difficulty level
     keywords
     suggested amount of portions
@@ -16,32 +18,42 @@ class FridgeIngredient{
     expiration date
 }
 class Rate{
+    id
     value
-    osoba wpisująca
+    author
 }
+
 class PreparationTime{
+    id
     value in minutes
-    osoba wpisująca
+    author
 }
 
 class VitaminSchema{
+    id
     name
-    objawy niedoboru
-    objawy nadmiaru
-    zapotrzebowanie dzienne
+    symptoms of deficiency
+    symptoms of overdose
+    minimal suggested daily dose
+    maximal suggested daily dose
 }
 
 class Vitamin {
+    id
+    vitamin schema id
     name
-    quantity in promiles
+    quantity in mg per 100g
 }
 
 class TypeOfMeal{
+    id
+    meal id
     type
     subtype
 }
 class Ingredient {
-    ingredient_id
+    id
+    ingredient schema id
     quantity
     unit
 }
@@ -52,20 +64,20 @@ class IngredientSchema {
     season
     vitamin
     cost per unit of quantity
-    preffered shop
+    preferred shop
 }
 
 
-Recipe -right- Rate
+Recipe "1" -right- "*" Rate
 Recipe "1" -up- "*" PreparationTime
 Recipe "*" -down- "1" TypeOfMeal
-Recipe -left- Ingredient
+Recipe "1" -left- "*" Ingredient
 Vitamin "*" -up- "1" IngredientSchema
 
-Ingredient "1" -down-> "1" FridgeIngredient
-Ingredient "1" -up-> "1" ShoppingIngridient
-IngredientSchema "1" -> "*" Ingredient
-VitaminSchema "1" -left-> "*" Vitamin
+Ingredient  -down->  FridgeIngredient
+Ingredient  -up->  ShoppingIngridient
+IngredientSchema "1" - "*" Ingredient
+VitaminSchema "1" -left- "*" Vitamin
 
 
 @enduml
