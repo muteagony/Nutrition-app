@@ -47,7 +47,7 @@ class Vitamin {
 
 class TypeOfMeal{
     id
-    meal id
+    recipe id
     type
     subtype
 }
