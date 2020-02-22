@@ -5,83 +5,85 @@ title Nutrition App
 
 skinparam nodesep 100
 
-class Recipe {
+class recipe {
     id
     name
-    difficulty level
+    image
+    description
+    difficulty_level
     keywords
-    suggested amount of portions
-    healthy level
+    suggested_amount_of_portions
+    healthy_level
 }
 
-class FridgeIngredient{
-    expiration date
+class fridge_ingredient {
+    expiration_date
 }
-class Rate{
+
+class rate {
     id
-    recipe id
+    recipe_id
     value
     author
 }
 
-class PreparationTime{
+class preparation_time {
     id
-    recipe id
-    value in minutes
+    recipe_id
+    value_in_minutes
     author
 }
 
-class VitaminSchema{
+class vitamin_schema {
     id
     name
-    symptoms of deficiency
-    symptoms of overdose
-    minimal suggested daily dose
-    maximal suggested daily dose
+    symptoms_of_deficiency
+    symptoms_of_overdose
+    minimal_suggested_daily_dose
+    maximal_suggested_daily_dose
 }
 
-class Vitamin {
+class vitamin {
     id
-    vitamin schema id
-    quantity in mg per 100g
+    vitamin_schema_id
+    quantity_in_mg_per_100g
 }
 
-class TypeOfMeal{
+class type_of_meal {
     id
-    recipe id
+    recipe_id
     type
     subtype
 }
-class ShoppingIngredient {
+
+class shopping_ingredient {
     id
-    ingredient schema id
+    ingredient_schema_id
     quantity
     unit
 }
 
-class IngredientSchema {
+class ingredient_schema {
     id
     name
     season
     vitamin
-    cost per unit of quantity
-    preferred shop
+    cost_per_unit_of_quantity
+    preferred_shop
 }
 
-class Ingredient {
-    recipe id
+class recipe_ingredient {
+    recipe_id
 }
 
-Recipe "1" -right- "*" Rate
-Recipe "1" -up- "*" PreparationTime
-Recipe "*" -down- "1" TypeOfMeal
-Recipe "1" -left- "*" Ingredient
-Vitamin "*" -up- "1" IngredientSchema
-
-ShoppingIngredient  -down->  FridgeIngredient
-ShoppingIngredient  -up->  Ingredient
-IngredientSchema "1" - "*" ShoppingIngredient
-VitaminSchema "1" -left- "*" Vitamin
-
+recipe "1" -right- "*" rate
+recipe "1" -up- "*" preparation_time
+recipe "*" -down- "1" type_of_meal
+recipe "1" -left- "*" recipe_ingredient
+vitamin "*" -up- "1" ingredient_schema
+shopping_ingredient  -down->  fridge_ingredient
+shopping_ingredient  -up->  recipe_ingredient
+ingredient_schema "1" - "*" shopping_ingredient
+vitamin_schema "1" -left- "*" vitamin
 
 @enduml
