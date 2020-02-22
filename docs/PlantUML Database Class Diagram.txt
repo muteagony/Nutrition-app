@@ -19,12 +19,14 @@ class FridgeIngredient{
 }
 class Rate{
     id
+    recipe id
     value
     author
 }
 
 class PreparationTime{
     id
+    recipe id
     value in minutes
     author
 }
@@ -41,7 +43,6 @@ class VitaminSchema{
 class Vitamin {
     id
     vitamin schema id
-    name
     quantity in mg per 100g
 }
 
@@ -51,7 +52,7 @@ class TypeOfMeal{
     type
     subtype
 }
-class Ingredient {
+class ShoppingIngredient {
     id
     ingredient schema id
     quantity
@@ -67,6 +68,9 @@ class IngredientSchema {
     preferred shop
 }
 
+class Ingredient {
+    recipe id
+}
 
 Recipe "1" -right- "*" Rate
 Recipe "1" -up- "*" PreparationTime
@@ -74,9 +78,9 @@ Recipe "*" -down- "1" TypeOfMeal
 Recipe "1" -left- "*" Ingredient
 Vitamin "*" -up- "1" IngredientSchema
 
-Ingredient  -down->  FridgeIngredient
-Ingredient  -up->  ShoppingIngridient
-IngredientSchema "1" - "*" Ingredient
+ShoppingIngredient  -down->  FridgeIngredient
+ShoppingIngredient  -up->  Ingredient
+IngredientSchema "1" - "*" ShoppingIngredient
 VitaminSchema "1" -left- "*" Vitamin
 
 
