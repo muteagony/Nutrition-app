@@ -1,0 +1,88 @@
+@startuml
+
+title Nutrition App
+
+skinparam nodesep 100
+
+class recipe {
+    id
+    name
+    image
+    description
+    difficulty_level
+    keywords
+    suggested_amount_of_portions
+    healthy_level
+}
+
+class fridge_ingredient {
+    expiration_date
+}
+
+class rate {
+    id
+    recipe_id
+    value
+    author
+}
+
+class preparation_time {
+    id
+    recipe_id
+    value_in_minutes
+    author
+}
+
+class vitamin_schema {
+    id
+    name
+    symptoms_of_deficiency
+    symptoms_of_overdose
+    minimal_suggested_daily_dose
+    maximal_suggested_daily_dose
+}
+
+class vitamin {
+    id
+    vitamin_schema_id
+    quantity_in_mg_per_100g
+}
+
+class type_of_meal {
+    id
+    recipe_id
+    type
+    subtype
+}
+
+class shopping_ingredient {
+    id
+    ingredient_schema_id
+    quantity
+    unit
+}
+
+class ingredient_schema {
+    id
+    name
+    season
+    vitamin_id
+    cost_per_unit_of_quantity
+    preferred_shop
+}
+
+class recipe_ingredient {
+    recipe_id
+}
+
+recipe "1" -right- "*" rate
+recipe "1" -up- "*" preparation_time
+recipe "*" -down- "1" type_of_meal
+recipe "1" -left- "*" recipe_ingredient
+vitamin "*" -up- "1" ingredient_schema
+shopping_ingredient  -down->  fridge_ingredient
+shopping_ingredient  -up->  recipe_ingredient
+ingredient_schema "1" - "*" shopping_ingredient
+vitamin_schema "1" -left- "*" vitamin
+
+@enduml
